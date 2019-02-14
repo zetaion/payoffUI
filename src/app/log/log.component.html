@@ -1,0 +1,262 @@
+<ngx-spinner bdColor = "rgba(178,144,130,0)" size = "large" color = "#f58332" type = "line-spin-clockwise-fade"></ngx-spinner>
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Letter of Guarantee</h4>
+                    </div>
+                    <div class="content">
+                        <form [formGroup]="logData">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label style="color: black">Claim Number</label>
+                                        <input type="text" class="form-control" placeholder="" formControlName="claimNumber" value="">
+                                        <div *ngIf="submitted && f.claimNumber.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.claimNumber.errors.required">Claim Number is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: black">Policy Number</label>
+                                        <input type="text" class="form-control" placeholder="" formControlName="policyNumber" value="">
+                                        <div *ngIf="submitted && f.policyNumber.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.policyNumber.errors.required">Policy Number is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: black">Insurer</label>
+                                        <input type="text" class="form-control" formControlName="insurer" placeholder="">
+                                        <div *ngIf="submitted && f.insurer.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.insurer.errors.required">Insurer is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label style="color: black">Lien Holder</label>
+                                        <input type="text" class="form-control" formControlName="lienHolder" placeholder="" value="">
+                                        <div *ngIf="submitted && f.lienHolder.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.lienHolder.errors.required">Lien Holder is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label style="color: black">Customer</label>
+                                        <input type="text" class="form-control" formControlName="customer" placeholder="" value="">
+                                        <div *ngIf="submitted && f.customer.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.customer.errors.required">Customer is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label style="color: black">Account Number</label>
+                                        <input type="text" class="form-control" formControlName="accountNumber" placeholder="" value="{{this.account.accountNumber}}">
+                                        <div *ngIf="submitted && f.accountNumber.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.accountNumber.errors.required">Account Number is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: black">Loss Date</label>
+                                        <input type="date" class="form-control" placeholder="" formControlName="lossDate" value="">
+                                        <div *ngIf="submitted && !f.lossDate.value">
+                                            <div style="color: red;font-size: 12px">Loss Date is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: black">Mileage</label>
+                                        <input type="text" class="form-control" placeholder="" value="" formControlName="mileage">
+                                        <div *ngIf="submitted && f.mileage.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.mileage.errors.required">Mileage is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: black">Location</label>
+                                        <input type="text" class="form-control" placeholder="" value="" formControlName="location">
+                                        <div *ngIf="submitted && f.location.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.location.errors.required">Location is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: black">Type of Losss</label>
+                                        <input type="text" class="form-control" placeholder="" value="" formControlName="lossType">
+                                        <div *ngIf="submitted && f.lossType.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.lossType.errors.required">Loss Type is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: black">Deductible</label>
+                                        <input type="number" class="form-control" placeholder="" formControlName="deductible">
+                                        <div *ngIf="submitted && f.deductible.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.deductible.errors.required">Deductible amount is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label style="color: black">Vehicle Make</label>
+                                        <input type="text" class="form-control" placeholder="" value="{{this.account.vehicle.make}}" formControlName="vehicleMake">
+                                        <div *ngIf="submitted && f.vehicleMake.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.vehicleMake.errors.required">Make is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label style="color: black">Vehicle Model</label>
+                                        <input type="text" class="form-control" placeholder="" value="{{this.account.vehicle.model}}" formControlName="vehicleModel">
+                                        <div *ngIf="submitted && f.vehicleModel.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.vehicleModel.errors.required">Model is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: black">Vehicle Year</label>
+                                        <input type="number" class="form-control" placeholder="" value="{{this.account.vehicle.year |  date:'yyyy'}}" formControlName="vehicleYear">
+                                        <div *ngIf="submitted && f.vehicleYear.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.vehicleYear.errors.required">Year is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label style="color: black">Vehicle VIN</label>
+                                        <input type="text" class="form-control" placeholder="" value="{{this.account.vehicle.vin}}" formControlName="vehicleVin">
+                                        <div *ngIf="submitted && f.vehicleVin.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.vehicleVin.errors.required">Vin is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label style="color: black">Per Diem</label>
+                                        <input type="number" class="form-control" placeholder="" value="{{this.account.quote.perDiem.value}}" formControlName="perDiem">
+                                        <div *ngIf="submitted && f.perDiem.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.perDiem.errors.required">Per Diem value is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: black">Payoff Value</label>
+                                        <input type="text" class="form-control" placeholder="" value="{{this.account.quote.netPayoffAmount.value}}" formControlName="payoffValue">
+                                        <div *ngIf="submitted && f.payoffValue.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.payoffValue.errors.required">Payoff Value is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: black">Actual Value</label>
+                                        <input type="number" class="form-control" placeholder="" value="" formControlName="actualValue">
+                                        <div *ngIf="submitted && f.actualValue.errors">
+                                            <div style="color: red;font-size: 12px" *ngIf="f.actualValue.errors.required">Actual value is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label style="color: black">Good Through Date</label>
+                                        <input type="date" class="form-control" placeholder="" formControlName="goodThruDate" value="{{this.account.quote.goodThroughDate}}">
+                                        <div *ngIf="submitted && !f.goodThruDate.value">
+                                            <div style="color: red;font-size: 12px">Good Thru Date is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label style="color: black">Delivery Type</label>
+                                        <select (change)="deliveryTypeChangeEvent($event.target.value)" class="form-control" formControlName="deliveryMode">
+                                            <option value="select">Select</option>
+                                            <option value="download">Download</option>
+                                            <option value="email">Email</option>
+                                            <option value="fax">Fax</option>
+                                        </select>
+                                        <div *ngIf="submitted && (f.deliveryMode.errors || f.deliveryMode.value =='select')">
+                                            <div style="color: red;font-size: 12px">Delivery Type is required</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" *ngIf="deliveryType == 'email' || deliveryType == 'fax'">
+                                    <div class="form-group">
+                                        <label style="color: black" *ngIf="deliveryType == 'email'">Email Address</label>
+                                        <label style="color: black" *ngIf="deliveryType == 'fax'">Fax Number</label>
+                                        <input type="email" *ngIf="deliveryType == 'email'" class="form-control" placeholder="" value="" formControlName="emailAddress">
+                                        <input type="number" *ngIf="deliveryType == 'fax'" class="form-control" placeholder="" value="" formControlName="faxNumber">
+                                        <!--<div *ngIf="submitted && (f.emailAddress.errors || f.faxNumber.errors)">-->
+                                            <!--<div style="color: red;font-size: 12px" *ngIf="deliveryType == 'email'">Email Address is required</div>-->
+                                            <!--<div style="color: red;font-size: 12px" *ngIf="deliveryType == 'fax'">Fax Number is required</div>-->
+                                        <!--</div>-->
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" (click)="sendLOG()" class="btn btn-info btn-fill pull-right">Submit</button>
+                            <button type="submit" routerLink="/dashboard" class="btn btn-info btn-fill pull-left">Cancel</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,403 @@
+<ngx-spinner bdColor = "rgba(178,144,130,0)" size = "large" color = "#f58332" type = "line-spin-clockwise-fade"></ngx-spinner>
+<ng-container *ngIf="this.payoffDetails === undefined || this.payoffDetails === null">
+    <div class="main-content" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div *ngIf="this.creditAppFields != undefined" class="card">
+                        <div class="header">
+                            <h4 class="title">Request Payoff Quote</h4>
+                        </div>
+                        <div class="content">
+                            <form [formGroup]="payOffDetailForm" (ngSubmit)="retrievePayoffQuote()">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="color: black">Claim Number</label>
+                                            <input type="text" id="claimNumber" class="form-control" placeholder="" formControlName="claimNumber" value="">
+                                            <div *ngIf="submitted && f.claimNumber.errors">
+                                                <div style="color: red;font-size: 12px" *ngIf="f.claimNumber.errors.required">Claim Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="color: black">Policy Number</label>
+                                            <input type="text" class="form-control" formControlName="policyNumber" placeholder="">
+                                            <div *ngIf="submitted && f.policyNumber.errors">
+                                                <div style="color: red;font-size: 12px" *ngIf="f.policyNumber.errors.required">Policy Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="color: black">Finance Source</label>
+                                            <select (change)="populateDropDownFields($event.target.value)" formControlName="financeSourceId" class="form-control" id="lender" required>
+                                                <option value="select">Select</option>
+                                                <option [value]="source.fsid" *ngFor="let source of this.creditAppFields.financeSources.financeSource">
+                                                    {{source.name}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="submitted && f.financeSourceId.errors" class="invalid-feedback">
+                                                <div style="color: red;font-size: 12px" *ngIf="f.financeSourceId.errors.required">Finance Source Id is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="color: black">Product Type</label>
+                                            <select *ngIf="this.transactionTypes === null || this.transactionTypes === undefined" class="form-control" disabled formControlName="productType" id="transactionType" required>
+                                            </select>
+
+                                            <select *ngIf="this.transactionTypes != null && this.transactionTypes != undefined" class="form-control" formControlName="productType" id="transactionType1" required>
+                                                <option [value]="type" *ngFor="let type of this.transactionTypes">
+                                                    {{type}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="submitted && f.productType.errors" class="invalid-feedback">
+                                                <div style="color: red;font-size: 12px" *ngIf="f.productType.errors.required">Product Type is required</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="color: black">Identifier Type</label>
+                                            <select *ngIf="this.identifier === null || this.identifier === undefined" disabled class="form-control" formControlName="inquiryType" id="identifierType" required>
+                                            </select>
+
+                                            <select *ngIf="this.identifier != null && this.identifier != undefined" class="form-control" formControlName="inquiryType" id="identifierType1" required>
+                                                <option [value]="type" *ngFor="let type of this.identifier">
+                                                    {{type}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="submitted && f.inquiryType.errors" class="invalid-feedback">
+                                                <div style="color: red;font-size: 12px" *ngIf="f.inquiryType.errors.required">Identifier Type is required</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label style="color: black">Identifier Value</label>
+                                            <input type="text" *ngIf="this.identifier === null || this.identifier === undefined" disabled class="form-control" formControlName="inquiryKey" placeholder="Identifier Value" value="" required>
+                                            <input type="text" *ngIf="this.identifier != null && this.identifier != undefined" class="form-control" formControlName="inquiryKey" placeholder="Identifier Value" value="" required>
+                                            <div *ngIf="submitted && f.inquiryKey.errors" class="invalid-feedback">
+                                                <div style="color: red;font-size: 12px" *ngIf="f.inquiryKey.errors.required">Identifier value is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label style="color: black" class="control-label">
+                                                <input type="checkbox" formControlName="customerConsent" name="agree" value="agree" required/> I acknowledge and agree that I have received the customer's consent to obtain this payoff information from Lender.
+                                            </label>
+                                            <div *ngIf="submitted && f.customerConsent.errors" class="invalid-feedback">
+                                                <div style="color: red;font-size: 12px" *ngIf="f.customerConsent.errors.required">Customer consent is required</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-info btn-fill pull-right">Submit</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="(this.payoffDetails != undefined || this.payoffDetails != null) && (showChildren === false)">
+    <div class="main-content" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="card" *ngIf="this.payoffDetails.account != undefined">
+
+                        <div class="header">
+                            <h4 class="title">Payoff Quote</h4>
+                        </div>
+                        <div class="content" *ngFor="let acc of this.payoffDetails.account">
+                            <div class="panel panel-primary">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Account Details</h3>
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Account Number:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.accountNumber}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Product Type:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.productType}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-2" style="margin-top:5px">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Next Payment Amount:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.payment.nextPaymentAmount.value | currency}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Next Payment Date:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.payment.nextPaymentDate === null ? '--' : acc.payment.nextPaymentDate.value }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-2" style="margin-top:5px">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Payment Remaining:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.payment.paymentsRemaining}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Term:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.payment.term.value}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-2" style="margin-top:5px">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Balloon Amount:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.payment.balloonAmount.value | currency}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="panel panel-primary">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Vehicle Details</h3>
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">VIN:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.vehicle.vin}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Year:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.vehicle.year |  date:'MM/dd/yyyy'}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-2" style="margin-top:5px">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Make:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.vehicle.make}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Model:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.vehicle.model}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-2" style="margin-top:5px">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Residual Value:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.vehicle.residualValue === 'undefined' ? acc.vehicle.residualValue : '--'}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="panel panel-primary">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Payoff Quote</h3>
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Net Payoff Amount:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.quote.netPayoffAmount.value | currency}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-6">Good Through Date:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.quote.goodThroughDate === null? '--' : acc.quote.goodThroughDate |  date:'MM/dd/yyyy'}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-2" style="margin-top:5px">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Per Diem:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.quote.perDiem.value}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Gross Payoff Amount:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.quote.grossPayoffAmount.value | currency}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-2" style="margin-top:5px">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-5">Security Deposit:</label>
+                                                <div class="col-sm-5">
+                                                    <p>{{acc.quote.securityDepositAmount === null ? '--' : acc.quote.securityDepositAmount | currency}}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div *ngIf="acc.consumerPayoffInstruction.length>0" class="panel panel-primary">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Consumer Payoff Instructions</h3>
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="row">
+                                        {{acc.consumerPayoffInstruction }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="acc.consumerPayoffInstruction.length>0" class="panel panel-primary">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Consumer Payoff Instructions</h3>
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="row">
+                                        {{acc.consumerPayoffInstruction }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="acc.comments.length>0" class="panel panel-primary">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Comments</h3>
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="row"  *ngFor="let comment of acc.comments ">
+                                        <div [innerHTML]="comment"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" (click)="displayLOG()" class="btn btn-info btn-fill pull-right">Letter of Guarantee</button>
+                            <button type="submit" (click)="ngOnInit()" class="btn btn-info btn-fill pull-left">Reset</button>
+                            <div class="clearfix"></div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<app-log *ngIf="showChildren === true" [payoffQuoteResponse]="this.payoffDetails"></app-log>
